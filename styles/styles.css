@@ -1588,6 +1588,124 @@ footer {
     outline-offset: 3px;
 }
 
+/* Concours de sauts : jauge de timing + tableau des scores */
+.saut-charge {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(420px, 86%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.saut-charge[hidden] {
+    display: none;
+}
+
+.saut-gauge {
+    position: relative;
+    height: 18px;
+    border-radius: 999px;
+    background: rgba(2, 16, 51, 0.65);
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+}
+
+.saut-zone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    background: rgba(6, 214, 138, 0.75);
+}
+
+.saut-cursor {
+    position: absolute;
+    top: -2px;
+    bottom: -2px;
+    width: 4px;
+    background: #fff;
+    box-shadow: 0 0 8px #fff;
+}
+
+.saut-power {
+    height: 10px;
+    border-radius: 999px;
+    background: rgba(2, 16, 51, 0.65);
+    border: 1px solid var(--glass-border);
+    overflow: hidden;
+}
+
+.saut-power div {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, var(--accent), var(--secondary));
+}
+
+.saut-live {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.saut-live .flappy-keys {
+    margin-top: 0;
+    text-align: left;
+}
+
+/* La consigne passe en haut du canvas (la jauge reste en bas) : fini le chevauchement. */
+#saut-focus .flappy-hint {
+    top: 1rem;
+    bottom: auto;
+}
+
+.saut-table {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+}
+
+.saut-table li {
+    padding: 0.45rem 0.9rem;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--glass-border);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.saut-table li.me {
+    border-color: var(--accent);
+    font-weight: 700;
+}
+
+.saut-table-live {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.flappy-over .saut-table li {
+    background: var(--light);
+    border-color: transparent;
+    color: #333;
+}
+
+.flappy-over .saut-table li.me {
+    border-color: var(--primary);
+}
+
+.flappy-over .saut-table li.winner {
+    background: #fff8e1;
+    border-color: #b7791f;
+}
+
 /* HUD Descente abyssale */
 .nage-depth {
     font-weight: 800;

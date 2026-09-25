@@ -34,11 +34,11 @@
                     <span class="preview-link"><button class="btn btn-primary" id="hub-flappy-play">Choisir ce jeu →</button></span>
                 </div>
             </div>
-            <div class="preview-card preview-soon">
+            <div class="preview-card">
                 <div class="preview-body">
-                    <h3>🤿 Plongeon — bientôt</h3>
-                    <p>Dosage du salto : entrez dans l'eau sans éclaboussures.</p>
-                    <span class="preview-link">En préparation…</span>
+                    <h3>🏆 Concours de sauts — jouable !</h3>
+                    <p>5 manches contre Éclair, Ondine et Neptune : plongez, visez le courant porteur, sautez le plus haut.</p>
+                    <span class="preview-link"><button class="btn btn-primary" id="hub-saut-play">Choisir ce jeu →</button></span>
                 </div>
             </div>
             <div class="preview-card">
@@ -146,6 +146,63 @@
         </div>
     </div>
 
+    <!-- Mode focalisé : Concours de sauts -->
+    <div class="flappy-focus" id="saut-focus" hidden>
+        <div class="flappy-modal flappy-modal-wide" role="dialog" aria-modal="true" aria-label="Concours de sauts">
+            <div class="flappy-hud">
+                <p class="flappy-score" id="saut-round">Manche 1 / 5</p>
+                <p class="flappy-best" id="saut-best">Record : 0 m</p>
+                <button class="zen-pill" id="saut-mute" aria-pressed="false">🔊 Son</button>
+                <button class="zen-pill" id="saut-close" aria-label="Quitter le jeu">✕</button>
+            </div>
+            <div class="flappy-stage">
+                <canvas id="saut-canvas" class="game-canvas" width="800" height="450" tabindex="0" aria-label="Zone de jeu : maintenez Espace ou le toucher pour plonger, relâchez pour sauter"></canvas>
+
+                <div class="flappy-menu" id="saut-menu">
+                    <p class="flappy-over-title">🏆 Concours de sauts</p>
+                    <p class="flappy-menu-sub">5 manches contre 3 rivaux. Maintenez pour plonger profond, relâchez dans la zone verte !</p>
+                    <button class="btn btn-primary" id="saut-play-btn">▶ Jouer</button>
+                    <button class="btn btn-ghost" id="saut-options-btn">⚙️ Options</button>
+                    <button class="btn btn-ghost" id="saut-quit-btn">← Quitter</button>
+                    <div class="flappy-options" id="saut-options-panel" hidden>
+                        <label class="flappy-opt-row">
+                            <input type="checkbox" id="saut-opt-sound" checked> Effets sonores
+                        </label>
+                        <fieldset class="flappy-opt-row">
+                            <legend>Difficulté</legend>
+                            <label><input type="radio" name="saut-diff" value="detente"> Détente</label>
+                            <label><input type="radio" name="saut-diff" value="normal" checked> Normal</label>
+                            <label><input type="radio" name="saut-diff" value="rapide"> Rapide</label>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="saut-charge" id="saut-charge-wrap" hidden>
+                    <div class="saut-gauge">
+                        <div class="saut-zone" id="saut-zone"></div>
+                        <div class="saut-cursor" id="saut-cursor"></div>
+                    </div>
+                    <div class="saut-power"><div id="saut-charge-fill"></div></div>
+                </div>
+
+                <p class="flappy-hint" id="saut-prompt" hidden></p>
+
+                <div class="flappy-over" id="saut-over" hidden>
+                    <p class="flappy-over-title">🏁 Concours terminé !</p>
+                    <ul class="saut-table" id="saut-over-table"></ul>
+                    <p id="saut-over-best">Record : 0 m</p>
+                    <p class="flappy-record" id="saut-record" hidden>🏆 Nouveau record !</p>
+                    <button class="btn btn-primary" id="saut-restart">↻ Rejouer (R)</button>
+                    <button class="btn btn-ghost" id="saut-over-menu">Menu</button>
+                </div>
+            </div>
+            <div class="saut-live">
+                <p class="flappy-keys">Maintenir Espace / clic / toucher : plongée · relâcher dans le vert : saut · <kbd>R</kbd> recommencer · <kbd>Échap</kbd> quitter</p>
+                <ul class="saut-table saut-table-live" id="saut-board"></ul>
+            </div>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-content">
             <p>Dolphinarium © 2026 - Tous droits réservés</p>
@@ -165,5 +222,6 @@
     <script src="../js/storage.js" defer></script>
     <script src="../js/jeux-flappy.js" defer></script>
     <script src="../js/jeux-nage.js" defer></script>
+    <script src="../js/jeux-saut.js" defer></script>
 </body>
 </html>
