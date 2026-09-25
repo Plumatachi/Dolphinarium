@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini-jeux - Dolphinarium</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="../index.html">🐬 <span>Dolphinarium</span></a>
+        <nav>
+            <a href="../index.html">Accueil</a>
+            <a href="galerie.html">Galerie</a>
+            <a href="wiki.html">Wiki</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="zen.html">Zen</a>
+            <a href="carte.html">Carte</a>
+            <a href="jeux.html" class="active">Jeux</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <h1>🎮 Mini-jeux</h1>
+            <p>La salle d'arcade du Dolphinarium. Choisissez un jeu : records sauvegardés, 100 % hors-ligne.</p>
+        </section>
+
+        <section class="jeux-hub">
+            <div class="preview-card">
+                <div class="preview-body">
+                    <h3>🐬 Sauts périlleux — jouable !</h3>
+                    <p>Flappy dauphin : un tonneau à chaque impulsion, arches de plancton, 3 difficultés.</p>
+                    <span class="preview-link"><button class="btn btn-primary" id="hub-flappy-play">Choisir ce jeu →</button></span>
+                </div>
+            </div>
+            <div class="preview-card preview-soon">
+                <div class="preview-body">
+                    <h3>🤿 Plongeon — bientôt</h3>
+                    <p>Dosage du salto : entrez dans l'eau sans éclaboussures.</p>
+                    <span class="preview-link">En préparation…</span>
+                </div>
+            </div>
+            <div class="preview-card">
+                <div class="preview-body">
+                    <h3>🌊 Descente abyssale — jouable !</h3>
+                    <p>Nage libre vers les abysses : Rochers, méduses et crabes à éviter, poissons à collecter, 3 vies.</p>
+                    <span class="preview-link"><button class="btn btn-primary" id="hub-nage-play">Choisir ce jeu →</button></span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Mode focalisé : le jeu n'apparaît qu'après choix -->
+    <div class="flappy-focus" id="flappy-focus" hidden>
+        <div class="flappy-modal" role="dialog" aria-modal="true" aria-label="Sauts périlleux">
+            <div class="flappy-hud">
+                <p class="flappy-score" id="flappy-score" aria-live="polite">0</p>
+                <p class="flappy-best" id="flappy-best">Record : 0</p>
+                <button class="zen-pill" id="flappy-mute" aria-pressed="false">🔊 Son</button>
+                <button class="zen-pill" id="flappy-close" aria-label="Quitter le jeu">✕</button>
+            </div>
+            <div class="flappy-stage">
+                <canvas id="flappy-canvas" width="480" height="640" tabindex="0" aria-label="Zone de jeu : Espace ou toucher pour faire plonger le dauphin"></canvas>
+
+                <div class="flappy-menu" id="flappy-menu">
+                    <p class="flappy-over-title">🐬 Sauts périlleux</p>
+                    <p class="flappy-menu-sub">Un tonneau à chaque impulsion. Franchissez les arches !</p>
+                    <button class="btn btn-primary" id="flappy-play-btn">▶ Jouer</button>
+                    <button class="btn btn-ghost" id="flappy-options-btn">⚙️ Options</button>
+                    <button class="btn btn-ghost" id="flappy-quit-btn">← Quitter</button>
+                    <div class="flappy-options" id="flappy-options-panel" hidden>
+                        <label class="flappy-opt-row">
+                            <input type="checkbox" id="flappy-opt-sound" checked> Effets sonores
+                        </label>
+                        <fieldset class="flappy-opt-row">
+                            <legend>Difficulté</legend>
+                            <label><input type="radio" name="flappy-diff" value="detente"> Détente</label>
+                            <label><input type="radio" name="flappy-diff" value="normal" checked> Normal</label>
+                            <label><input type="radio" name="flappy-diff" value="rapide"> Rapide</label>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <p class="flappy-hint" id="flappy-hint" hidden>Espace / clic / tap pour plonger 🐬</p>
+
+                <div class="flappy-over" id="flappy-over" hidden>
+                    <p class="flappy-over-title">💥 Plouf !</p>
+                    <p>Score : <strong id="flappy-over-score">0</strong></p>
+                    <p id="flappy-over-best">Record : 0</p>
+                    <p class="flappy-record" id="flappy-record" hidden>🏆 Nouveau record !</p>
+                    <button class="btn btn-primary" id="flappy-restart">↻ Rejouer (R)</button>
+                    <button class="btn btn-ghost" id="flappy-over-menu">Menu</button>
+                </div>
+            </div>
+            <p class="flappy-keys">Espace / ↑ / clic / tap : impulsion · <kbd>P</kbd> pause · <kbd>R</kbd> recommencer · <kbd>Échap</kbd> quitter</p>
+        </div>
+    </div>
+
+    <!-- Mode focalisé : Descente abyssale -->
+    <div class="flappy-focus" id="nage-focus" hidden>
+        <div class="flappy-modal flappy-modal-wide" role="dialog" aria-modal="true" aria-label="Descente abyssale">
+            <div class="flappy-hud">
+                <p class="flappy-score" id="nage-score" aria-live="polite">0</p>
+                <p class="flappy-best" id="nage-best">Record : 0</p>
+                <p class="nage-depth" id="nage-depth">0 m ↓</p>
+                <p class="nage-zone" id="nage-zone">Surface</p>
+                <p class="nage-lives" id="nage-lives" aria-label="Vies restantes">❤️❤️❤️</p>
+                <button class="zen-pill" id="nage-mute" aria-pressed="false">🔊 Son</button>
+                <button class="zen-pill" id="nage-close" aria-label="Quitter le jeu">✕</button>
+            </div>
+            <div class="flappy-stage">
+                <canvas id="nage-canvas" class="game-canvas" width="800" height="450" tabindex="0" aria-label="Zone de jeu : suivez avec le doigt ou les flèches haut et bas"></canvas>
+
+                <div class="flappy-menu" id="nage-menu">
+                    <p class="flappy-over-title">🌊 Descente abyssale</p>
+                    <p class="flappy-menu-sub">Suivez le courant vers les abysses. Évitez rochers, méduses et crabes, gobez les poissons !</p>
+                    <button class="btn btn-primary" id="nage-play-btn">▶ Jouer</button>
+                    <button class="btn btn-ghost" id="nage-options-btn">⚙️ Options</button>
+                    <button class="btn btn-ghost" id="nage-quit-btn">← Quitter</button>
+                    <div class="flappy-options" id="nage-options-panel" hidden>
+                        <label class="flappy-opt-row">
+                            <input type="checkbox" id="nage-opt-sound" checked> Effets sonores
+                        </label>
+                        <fieldset class="flappy-opt-row">
+                            <legend>Difficulté</legend>
+                            <label><input type="radio" name="nage-diff" value="detente"> Détente</label>
+                            <label><input type="radio" name="nage-diff" value="normal" checked> Normal</label>
+                            <label><input type="radio" name="nage-diff" value="rapide"> Rapide</label>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <p class="flappy-hint" id="nage-hint" hidden>Suivez avec le doigt / ↑ ↓ 🐬</p>
+
+                <div class="flappy-over" id="nage-over" hidden>
+                    <p class="flappy-over-title">🪨 Échoué !</p>
+                    <p>Score : <strong id="nage-over-score">0</strong></p>
+                    <p id="nage-over-best">Record : 0</p>
+                    <p class="flappy-record" id="nage-record" hidden>🏆 Nouveau record !</p>
+                    <button class="btn btn-primary" id="nage-restart">↻ Rejouer (R)</button>
+                    <button class="btn btn-ghost" id="nage-over-menu">Menu</button>
+                </div>
+            </div>
+            <p class="flappy-keys">Doigt/souris ou ↑ ↓ : nager · <kbd>P</kbd> pause · <kbd>R</kbd> recommencer · <kbd>Échap</kbd> quitter</p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>Dolphinarium © 2026 - Tous droits réservés</p>
+            <nav>
+                <a href="../index.html">Accueil</a>
+                <a href="galerie.html">Galerie</a>
+                <a href="wiki.html">Wiki</a>
+                <a href="quiz.html">Quiz</a>
+                <a href="zen.html">Zen</a>
+                <a href="carte.html">Carte</a>
+                <a href="jeux.html">Jeux</a>
+            </nav>
+            <p>Créé avec 💙 par un passionné des dauphins</p>
+        </div>
+    </footer>
+
+    <script src="../js/storage.js" defer></script>
+    <script src="../js/jeux-flappy.js" defer></script>
+    <script src="../js/jeux-nage.js" defer></script>
+</body>
+</html>

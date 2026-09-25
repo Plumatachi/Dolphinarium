@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiki des dauphins - Dolphinarium</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="../index.html">🐬 <span>Dolphinarium</span></a>
+        <nav>
+            <a href="../index.html">Accueil</a>
+            <a href="galerie.html">Galerie</a>
+            <a href="wiki.html" class="active">Wiki</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="zen.html">Zen</a>
+            <a href="carte.html">Carte</a>
+            <a href="jeux.html">Jeux</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <h1>📖 Wiki des dauphins</h1>
+            <p>Le mini-wiki du Dolphinarium, alimenté en direct par <a href="https://fr.wikipedia.org" target="_blank" rel="noopener" style="color:var(--accent)">Wikipédia</a>. Parcourez l'arborescence ou recherchez un sujet.</p>
+            <form class="wiki-search" id="wiki-search" role="search">
+                <input type="search" id="wiki-input" placeholder="Rechercher : orque, écholocation…" aria-label="Rechercher dans le wiki" autocomplete="off">
+                <button class="btn btn-primary" type="submit">Rechercher</button>
+            </form>
+        </section>
+
+        <p class="breadcrumb" id="breadcrumb" aria-live="polite">Wiki › …</p>
+
+        <div class="wiki-layout">
+            <aside class="wiki-tree" aria-label="Arborescence du wiki">
+                <details open>
+                    <summary>🌊 Découvrir</summary>
+                    <button data-title="Dauphin">Dauphin <span>vue d'ensemble</span></button>
+                </details>
+                <details open>
+                    <summary>🐬 Espèces</summary>
+                    <button data-title="Grand dauphin" class="active">Grand dauphin <span>Tursiops truncatus</span></button>
+                    <button data-title="Dauphin commun">Dauphin commun <span>Delphinus delphis</span></button>
+                    <button data-title="Dauphin bleu et blanc">Dauphin bleu et blanc <span>Stenella</span></button>
+                    <button data-title="Dauphin de Risso">Dauphin de Risso <span>Grampus griseus</span></button>
+                    <button data-title="Orque">Orque <span>Orcinus orca</span></button>
+                </details>
+                <details open>
+                    <summary>🧠 Biologie</summary>
+                    <button data-title="Écholocalisation">Écholocalisation <span>le « sonar »</span></button>
+                    <button data-title="Intelligence des cétacés">Intelligence <span>des cétacés</span></button>
+                </details>
+                <p class="wiki-source">Source : Wikipédia FR (CC BY-SA) — cliquez un sujet pour charger son résumé.</p>
+            </aside>
+
+            <article class="wiki-article" aria-live="polite">
+                <div class="loader mini show" id="wiki-loader" role="status" aria-label="Chargement de l'article">
+                    <div class="loader-scene" aria-hidden="true">
+                        <svg class="loader-dolphin" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49
+                                C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88
+                                C 50,95 90,95 120,85 L 112,100 L 128,88
+                                C 145,82 160,74 170,65 Z"
+                                fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="4"
+                                stroke-linejoin="round" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <p class="loader-text">Plongée dans Wikipédia…</p>
+                </div>
+                <div id="wiki-content" hidden>
+                    <h2 id="wiki-title"></h2>
+                    <img id="wiki-thumb" src="" alt="" hidden>
+                    <div id="wiki-extract"></div>
+                    <div class="wiki-footer">
+                        <a class="btn btn-ghost" id="wiki-prev" href="#">← Précédent</a>
+                        <a id="wiki-link" href="https://fr.wikipedia.org/wiki/Grand_dauphin" target="_blank" rel="noopener">Lire l'article complet sur Wikipédia →</a>
+                        <a class="btn btn-ghost" id="wiki-next" href="#">Suivant →</a>
+                    </div>
+                </div>
+                <p id="wiki-error" hidden></p>
+            </article>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>Dolphinarium © 2026 - Tous droits réservés</p>
+            <nav>
+                <a href="../index.html">Accueil</a>
+                <a href="galerie.html">Galerie</a>
+                <a href="wiki.html">Wiki</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="zen.html">Zen</a>
+            <a href="carte.html">Carte</a>
+            <a href="jeux.html">Jeux</a>
+            </nav>
+            <p>Créé avec 💙 par un passionné des dauphins</p>
+        </div>
+    </footer>
+
+    <script src="../js/wiki.js" defer></script>
+</body>
+</html>

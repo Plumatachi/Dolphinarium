@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie - Dolphinarium</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="../index.html">🐬 <span>Dolphinarium</span></a>
+        <nav>
+            <a href="../index.html">Accueil</a>
+            <a href="galerie.html" class="active">Galerie</a>
+            <a href="wiki.html">Wiki</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="zen.html">Zen</a>
+            <a href="carte.html">Carte</a>
+            <a href="jeux.html">Jeux</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <h1>📸 Galerie photo</h1>
+            <p>Videothèque Wikimedia Commons en direct. Cliquez pour agrandir — crédit affiché sous chaque image.</p>
+        </section>
+
+        <div class="gallery-controls" role="tablist" aria-label="Filtrer par espèce">
+            <button class="chip active" data-q="Tursiops truncatus jumping">Sauts</button>
+            <button class="chip" data-q="Tursiops truncatus">Grand dauphin</button>
+            <button class="chip" data-q="Delphinus delphis">Dauphin commun</button>
+            <button class="chip" data-q="Orcinus orca">Orques</button>
+            <button class="chip" data-q="wild dolphin">Sauvages</button>
+        </div>
+        <p class="api-status" id="api-status">Chargement des photos Wikimedia…</p>
+
+        <div class="loader" id="loader" role="status" aria-live="polite">
+            <div class="loader-scene" aria-hidden="true">
+                <svg class="loader-dolphin" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M170,65
+                        C 150,50 120,42 95,48
+                        L 88,25 L 80,49
+                        C 60,55 35,65 22,80
+                        L 5,70 L 12,82 L 6,94 L 24,88
+                        C 50,95 90,95 120,85
+                        L 112,100 L 128,88
+                        C 145,82 160,74 170,65 Z"
+                        fill="rgba(255,255,255,0.18)" stroke="#ffffff" stroke-width="4"
+                        stroke-linejoin="round" stroke-linecap="round"/>
+                    <circle cx="145" cy="62" r="4" fill="#fff"/>
+                    <circle cx="146" cy="62" r="1.8" fill="#0077b6"/>
+                </svg>
+                <svg class="loader-wave" viewBox="0 0 200 30" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,20 C30,10 60,25 100,18 C140,11 170,25 200,18"
+                        stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
+                    <path d="M20,26 C60,20 120,28 180,22"
+                        stroke="#90e0ef" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.6"/>
+                </svg>
+                <span class="splash s1"></span>
+                <span class="splash s2"></span>
+                <span class="splash s3"></span>
+            </div>
+            <p class="loader-text">Chargement des dauphins<span class="loader-dots"><span>.</span><span>.</span><span>.</span></span></p>
+        </div>
+        <section class="photo-grid" id="remote-grid" aria-label="Photos Wikimedia"></section>
+        <div class="load-more-wrap">
+            <button class="btn btn-ghost btn-swim" id="load-more"><span class="btn-label">Charger plus de dauphins</span></button>
+        </div>
+    </main>
+
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Fermer">×</button>
+        <div>
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <p>Dolphinarium © 2026 - Tous droits réservés</p>
+            <nav>
+                <a href="../index.html">Accueil</a>
+                <a href="galerie.html">Galerie</a>
+                <a href="wiki.html">Wiki</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="zen.html">Zen</a>
+            <a href="carte.html">Carte</a>
+            <a href="jeux.html">Jeux</a>
+            </nav>
+            <p>Créé avec 💙 par un passionné des dauphins</p>
+        </div>
+    </footer>
+
+    <script src="../js/galerie.js" defer></script>
+</body>
+</html>

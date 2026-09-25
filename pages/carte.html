@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carte - Dolphinarium</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="../index.html">🐬 <span>Dolphinarium</span></a>
+        <nav>
+            <a href="../index.html">Accueil</a>
+            <a href="galerie.html">Galerie</a>
+            <a href="wiki.html">Wiki</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="zen.html">Zen</a>
+            <a href="carte.html" class="active">Carte</a>
+            <a href="jeux.html">Jeux</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <h1>🗺️ Carte des dauphins</h1>
+            <p>Aquariums, zones de vie et flux saisonniers. Zoomez et activez les couches depuis le sélecteur en haut à droite de la carte.</p>
+        </section>
+
+        <p class="api-status" id="carte-status">Chargement de la carte…</p>
+        <div id="carte-map" role="application" aria-label="Carte interactive des dauphins"></div>
+        <p class="carte-note">Zones de vie et flux : tracés <strong>schématiques et pédagogiques</strong>, pas des relevés scientifiques. Coordonnées des aquariums vérifiées (OpenStreetMap). Tuiles : Esri / OpenStreetMap — connexion requise.</p>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>Dolphinarium © 2026 - Tous droits réservés</p>
+            <nav>
+                <a href="../index.html">Accueil</a>
+                <a href="galerie.html">Galerie</a>
+                <a href="wiki.html">Wiki</a>
+                <a href="quiz.html">Quiz</a>
+                <a href="zen.html">Zen</a>
+                <a href="carte.html">Carte</a>
+            <a href="jeux.html">Jeux</a>
+            </nav>
+            <p>Créé avec 💙 par un passionné des dauphins</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../js/carte-data.js" defer></script>
+    <script src="../js/carte.js" defer></script>
+</body>
+</html>

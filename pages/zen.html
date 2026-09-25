@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mode zen - Dolphinarium</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+</head>
+<body class="zen-body">
+    <!-- Scène immersive plein écran (la page elle-même, pas l'API Fullscreen) -->
+    <div class="zen-scene" aria-hidden="true">
+        <div class="zen-light l1"></div>
+        <div class="zen-light l2"></div>
+        <div class="zen-light l3"></div>
+        <div class="zen-light l4"></div>
+        <div class="zen-light l5"></div>
+        <svg id="zen-dolphin" class="zen-dolphin" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+            <path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49
+                C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88
+                C 50,95 90,95 120,85 L 112,100 L 128,88
+                C 145,82 160,74 170,65 Z"
+                fill="rgba(144,224,239,0.10)" stroke="rgba(255,255,255,0.75)" stroke-width="4"
+                stroke-linejoin="round" stroke-linecap="round"/>
+        </svg>
+        <span class="zen-bubble zb1"></span>
+        <span class="zen-bubble zb2"></span>
+        <span class="zen-bubble zb3"></span>
+        <span class="zen-bubble zb4"></span>
+        <span class="zen-bubble zb5"></span>
+        <span class="zen-bubble zb6"></span>
+        <div class="zen-vignette"></div>
+    </div>
+
+    <!-- Chromes discrets -->
+    <div class="zen-chrome">
+        <a class="zen-pill" href="../index.html">← Quitter le mode zen</a>
+        <button class="zen-pill" id="zen-mute" aria-pressed="false">🔊 Ambiance sonore</button>
+    </div>
+
+    <p class="zen-caption">Mode zen — respirez au rythme des vagues</p>
+
+    <!-- Sas d'entrée : débloque l'audio (geste utilisateur requis) -->
+    <div class="zen-enter" id="zen-enter">
+        <div class="glass-panel zen-enter-card">
+            <span class="hero-badge">🌊 Mode zen</span>
+            <h1>Plongez en eaux calmes</h1>
+            <p class="lead">Lumières bleues, dauphin lointain, vagues et sifflements générés en direct. Mettez un casque, respirez…</p>
+            <button class="btn btn-primary" id="zen-enter-btn">Entrer dans la bulle</button>
+        </div>
+    </div>
+
+    <script src="../js/zen.js" defer></script>
+</body>
+</html>

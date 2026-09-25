@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dolphinarium - Le monde fascinant des dauphins</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <header class="site-header">
+        <a class="logo" href="index.html">🐬 <span>Dolphinarium</span></a>
+        <nav>
+            <a href="index.html" class="active">Accueil</a>
+            <a href="pages/galerie.html">Galerie</a>
+            <a href="pages/wiki.html">Wiki</a>
+            <a href="pages/quiz.html">Quiz</a>
+            <a href="pages/zen.html">Zen</a>
+            <a href="pages/carte.html">Carte</a>
+            <a href="pages/jeux.html">Jeux</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-immersive">
+            <div class="hero-svg" aria-hidden="true">
+                <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,330 C150,300 300,360 450,325 C600,290 700,350 800,320" stroke="#ffffff" stroke-width="4" fill="none" opacity="0.25"/>
+                    <path d="M0,360 C150,330 300,390 450,355 C600,320 700,380 800,350" stroke="#ffffff" stroke-width="3" fill="none" opacity="0.18"/>
+                    <path d="M0,385 C200,365 400,400 800,375" stroke="#ffffff" stroke-width="2" fill="none" opacity="0.12"/>
+                    <g class="dolphin-swim">
+                        <path class="dolphin-draw" d="M600,140
+                            C 560,108 505,102 452,122
+                            C 442,102 432,85 418,68
+                            C 412,60 404,62 402,72
+                            C 398,90 394,108 390,124
+                            C 335,132 275,158 232,192
+                            L 212,204
+                            L 168,176
+                            C 158,170 148,172 146,180
+                            C 144,188 152,194 160,198
+                            L 182,208
+                            L 158,226
+                            C 150,232 150,241 158,243
+                            C 166,245 176,240 186,234
+                            L 218,217
+                            C 265,235 330,232 388,208
+                            C 382,224 374,240 362,252
+                            C 356,258 360,266 368,263
+                            C 382,257 394,246 402,234
+                            C 460,216 535,184 600,140 Z"
+                            stroke="#ffffff" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"
+                            fill="rgba(255,255,255,0.12)"/>
+                        <path class="dolphin-draw detail" d="M555,155 C 572,151 590,145 600,140" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <path class="dolphin-draw detail" d="M452,122 C 442,102 432,85 418,68" stroke="#ffffff" stroke-width="3" stroke-linecap="round" fill="none"/>
+                        <g class="dolphin-eye">
+                            <circle cx="544" cy="138" r="6" fill="#ffffff"/>
+                            <circle cx="546" cy="138" r="2.5" fill="#0077b6"/>
+                        </g>
+                        <g fill="none" stroke="#ffffff" stroke-width="2" opacity="0.7">
+                            <circle class="bubble b1" cx="620" cy="180" r="6"/>
+                            <circle class="bubble b2" cx="645" cy="200" r="4"/>
+                            <circle class="bubble b3" cx="630" cy="220" r="8"/>
+                            <circle class="bubble b4" cx="660" cy="170" r="3"/>
+                        </g>
+                    </g>
+                    <g stroke="#ffffff" stroke-width="4" stroke-linecap="round" fill="none" opacity="0.5">
+                        <path d="M180,280 C 190,260 210,250 230,255"/>
+                        <path d="M240,275 C 250,255 270,250 285,258"/>
+                        <path d="M150,295 C 155,285 165,280 175,283"/>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="glass-panel">
+                <span class="hero-badge">🐬 Expérience immersive</span>
+                <h1>Bienvenue au Dolphinarium</h1>
+                <p class="lead">Plongez dans le monde fascinant des dauphins, les créatures les plus intelligentes des océans.</p>
+                <div class="cta-row">
+                    <a class="btn btn-primary" href="pages/galerie.html">Explorer la galerie</a>
+                    <a class="btn btn-ghost" href="pages/wiki.html">Explorer le wiki</a>
+                </div>
+                <div class="hero-stats">
+                    <div><strong>40 km/h</strong><span>vitesse de pointe</span></div>
+                    <div><strong>260 dents</strong><span>sourire iconique</span></div>
+                    <div><strong>24/7</strong><span>cerveau en veille</span></div>
+                </div>
+            </div>
+            <div class="scroll-hint">▼ défiler pour explorer</div>
+        </section>
+
+        <section class="facts">
+            <div class="fact-card">
+                <span class="fact-icon">🧠</span>
+                <h3>Intelligence remarquable</h3>
+                <p>Un cerveau presque aussi développé que le nôtre : résolution de problèmes, outils, apprentissage social.</p>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">🔊</span>
+                <h3>Communication sophistiquée</h3>
+                <p>Sifflements signatures, clics d'écholocation et postures : chaque dauphin a son propre « nom ».</p>
+            </div>
+            <div class="fact-card">
+                <span class="fact-icon">😴</span>
+                <h3>Sommeil unilatéral</h3>
+                <p>Un hémisphère dort pendant que l'autre veille : respirer et surveiller les prédateurs en dormant.</p>
+            </div>
+        </section>
+
+        <section class="previews">
+            <a class="preview-card" href="pages/galerie.html">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/010%20Atlantic%20bottlenose%20dolphin%20jumping%20at%20Pelican%20point%20Photo%20by%20Giles%20Laurent.jpg?width=800" alt="Aperçu galerie" loading="lazy">
+                <div class="preview-body">
+                    <h3>📸 Galerie photo</h3>
+                    <p>Sauts, pods en chasse et explorations sous-marines en plein cadre.</p>
+                    <span class="preview-link">Voir les photos →</span>
+                </div>
+            </a>
+            <a class="preview-card" href="pages/wiki.html">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Common%20dolphin%20(Delphinus%20delphis)%20Sagres.jpg?width=800" alt="Aperçu wiki" loading="lazy">
+                <div class="preview-body">
+                    <h3>📖 Wiki des dauphins</h3>
+                    <p>Espèces, écholocation, intelligence : le savoir Wikipédia en direct.</p>
+                    <span class="preview-link">Explorer le wiki →</span>
+                </div>
+            </a>
+            <a class="preview-card" href="pages/quiz.html">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Tursiops%20truncatus%2001.jpg?width=800" alt="Aperçu quiz" loading="lazy">
+                <div class="preview-body">
+                    <h3>🧠 Quiz des dauphins</h3>
+                    <p>6 thématiques, QCM et Vrai/Faux, scores sauvegardés.</p>
+                    <span class="preview-link">Tester mes connaissances →</span>
+                </div>
+            </a>
+            <a class="preview-card" href="pages/zen.html">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Delphinus%20delphis%20with%20calf.jpg?width=800" alt="Aperçu mode zen" loading="lazy">
+                <div class="preview-body">
+                    <h3>🌊 Mode zen</h3>
+                    <p>Lumières bleues, vagues et sifflements lointains en plein écran.</p>
+                    <span class="preview-link">Plonger en eaux calmes →</span>
+                </div>
+            </a>
+            <a class="preview-card" href="pages/carte.html">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Common%20dolphins%20(Delphinus%20delphis)%20Sagres.jpg?width=800" alt="Aperçu carte" loading="lazy">
+                <div class="preview-body">
+                    <h3>🗺️ Carte des dauphins</h3>
+                    <p>Aquariums, zones de vie et flux saisonniers en satellite.</p>
+                    <span class="preview-link">Explorer la carte →</span>
+                </div>
+            </a>
+            <a class="preview-card" href="pages/jeux.html">
+                <img src="https://commons.wikimedia.org/wiki/Special:FilePath/Dolphin%20Jump%20(Ocean%20Adventure).jpg?width=800" alt="Aperçu mini-jeux" loading="lazy">
+                <div class="preview-body">
+                    <h3>🎮 Mini-jeux</h3>
+                    <p>Sauts périlleux : flappy dauphin à tonneaux, records sauvegardés.</p>
+                    <span class="preview-link">Jouer →</span>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>Dolphinarium © 2026 - Tous droits réservés</p>
+            <nav>
+                <a href="index.html">Accueil</a>
+                <a href="pages/galerie.html">Galerie</a>
+                <a href="pages/wiki.html">Wiki</a>
+            <a href="pages/quiz.html">Quiz</a>
+            <a href="pages/zen.html">Zen</a>
+            <a href="pages/carte.html">Carte</a>
+            <a href="pages/jeux.html">Jeux</a>
+            </nav>
+            <p>Créé avec 💙 par un passionné des dauphins</p>
+        </div>
+    </footer>
+</body>
+</html>
