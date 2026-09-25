@@ -28,6 +28,7 @@ pages/
   zen.html            Mode zen plein écran (audio procédural)
   carte.html          Carte Leaflet : aquariums, zones, flux (satellite)
   jeux.html           Salle d'arcade : Flappy, Nage, Concours de sauts
+  atlantide.html      Page secrète (hors nav) : Grande Bibliothèque engloutie
 js/                   Un module par page + storage.js (scores) + easter.js (global)
 styles/styles.css     Thème glassmorphism + animations
 favicon.svg           Emblème du site
@@ -63,12 +64,15 @@ favicon.svg           Emblème du site
 | Vidéo des 50 m | Concours de sauts | Total ≥ **50 m** sur un match (5 sauts quasi-parfaits) → bannière dorée vers la vidéo surprise |
 | Ballet zen | Mode zen | **Rare** : 1ʳᵉ danse possible entre 1,5 et 3 min, puis toutes les 4 à 8 min — trio flou qui ondule |
 | Konami marin | Partout | Taper `↑ ↑ ↓ ↓ ← → ← B A` (hors champs de saisie) → pluie de dauphins |
-| Logo taquin | Partout (header) | **5 clics** sur le logo en < 2,5 s → tonneau + plouf |
+| Logo taquin | Partout (header) | **5 clics en rafale** sur le logo (sans pause, on reste sur place) → tonneau + plouf. Un clic isolé retourne à l'accueil normalement |
 | Mode abysses | Partout | Visiter entre **22h et 6h** → voile sombre + bulle « bonsoir » |
 | Photo légendaire | Galerie | **1 chance sur 8** à chaque chargement → photo au cadre or pulsant |
-| Atlantide | Wiki | Rechercher **`atlantide`** → la Grande Bibliothèque engloutie |
+| Atlantide | Wiki | Rechercher **`atlantide`** → redirection vers la **page secrète** `pages/atlantide.html` (hors navigation) : bibliothèque géante, livres volants, recherche plein-texte dans 12 archives + renvoi Wikipédia si rien ne correspond |
 | Trésor | Carte | **5 clics** dans l'océan en < 12 s → pastille « Ici vivent des dauphins ! » |
 | Dauphin du hero | Accueil | Il se dessine tout seul au chargement — ce n'en est presque plus un 🤫 |
+| Adieu du Guide | Mode zen | Quitter le mode affiche *« So long, and thanks for all the fish ! »* (H2G2) avant de partir |
+| Dolphin's Grace | Nage (jeux) | Étoile dorée rare (~toutes les 30 s) → dash ×1.6 pendant 4 s + traînée (clin d'œil Minecraft) |
+| Darwin le traducteur | Partout (bulle 🐬) | Bot façon SeaQuest : blagues, conseils et aiguillage (15 intentions + suggestions) |
 
 ## Notes techniques
 

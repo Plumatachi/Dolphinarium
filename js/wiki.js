@@ -79,16 +79,7 @@ const ORDER = [
             }
         }
 
-        // 🥚 Article secret : la Grande Bibliothèque engloutie.
-        const ATLANTIS = {
-            title: 'Atlantide',
-            thumbnail: null,
-            extract: 'Bienvenue dans la Grande Bibliothèque engloutie, voyageur curieux.\n'
-                + 'Ici dorment les savoirs que les dauphins gardent depuis des millénaires : '
-                + 'la grammaire des sifflements, les cartes des courants oubliés et le secret du sourire permanent.\n'
-                + 'Les archivistes (un2128 dauphins, tous bénévoles) vous saluent. Revenez avec des poissons.'
-        };
-
+        // 🥚 Mot secret : cap vers la Grande Bibliothèque engloutie (page cachée).
         function isAtlantis(title) {
             return title.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') === 'atlantide';
         }
@@ -96,7 +87,7 @@ const ORDER = [
         async function loadArticle(title) {
             current = title;
             showLoading();
-            if (isAtlantis(title)) { render('Atlantide', ATLANTIS); return; }
+            if (isAtlantis(title)) { window.location.href = 'atlantide.html'; return; }
             if (cache.has(title)) { render(title, cache.get(title)); return; }
             try {
                 const url = 'https://fr.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1'

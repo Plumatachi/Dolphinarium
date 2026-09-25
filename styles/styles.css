@@ -94,6 +94,15 @@ body::before {
     transform: rotate(-8deg) scale(1.06);
 }
 
+/* Feedback immédiat à chaque clic sur le logo (masque les 500 ms avant navigation). */
+.logo-tap {
+    animation: logoTap 0.3s ease;
+}
+
+@keyframes logoTap {
+    50% { transform: scale(0.86); }
+}
+
 .site-header nav {
     display: flex;
     gap: 0.4rem;
@@ -1389,6 +1398,42 @@ footer {
     white-space: nowrap;
 }
 
+/* Adieu du Guide à la sortie du mode zen. */
+.zen-farewell {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 0.6rem;
+    background: rgba(1, 10, 36, 0.55);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    text-align: center;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    font-style: italic;
+    animation: farewellIn 0.8s ease both;
+}
+
+.zen-farewell[hidden] {
+    display: none;
+}
+
+.zen-farewell-fish {
+    font-size: 3rem;
+    animation: farewellSwim 2.6s ease-in-out infinite;
+}
+
+@keyframes farewellIn {
+    from { opacity: 0; }
+}
+
+@keyframes farewellSwim {
+    0%, 100% { transform: translateX(-18px) rotate(-10deg); }
+    50% { transform: translateX(18px) rotate(10deg); }
+}
+
 /* Sas d'entrée */
 .zen-enter {
     position: fixed;
@@ -1638,6 +1683,157 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
     .zen-reef * { animation: none !important; }
+}
+
+/* ---------- 🥚 Atlantide : la Grande Bibliothèque engloutie (page secrète) ---------- */
+.atlantide-body {
+    background: #04101f;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.atlantide-scene {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background:
+        radial-gradient(1000px 500px at 50% -5%, rgba(0, 180, 216, 0.18), transparent 60%),
+        linear-gradient(180deg, #04182e 0%, #04101f 55%, #020a14 100%);
+}
+
+.atlantide-glow {
+    position: absolute;
+    left: 50%;
+    top: 22%;
+    width: min(700px, 90vw);
+    height: 320px;
+    translate: -50% -50%;
+    background: radial-gradient(ellipse, rgba(0, 180, 216, 0.16), transparent 70%);
+    filter: blur(30px);
+}
+
+.atlantide-shelves {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    opacity: 0.5;
+    filter: blur(1.5px);
+}
+
+.atlantide-shelf {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    padding: 0 4vw 10px;
+    border-bottom: 8px solid #3a2a1a;
+}
+
+.atlantide-spine {
+    width: 22px;
+    border-radius: 3px 3px 0 0;
+    box-shadow: inset -3px 0 5px rgba(0, 0, 0, 0.45);
+}
+
+.fly-book {
+    position: absolute;
+    width: 46px;
+    height: 32px;
+    border-radius: 3px 7px 7px 3px;
+    background: linear-gradient(90deg, #5b3a29 0 8px, #7a5238 8px);
+    box-shadow: -4px 0 0 rgba(0, 0, 0, 0.35) inset, 0 0 18px rgba(144, 224, 239, 0.25);
+    opacity: 0;
+    filter: blur(1px);
+    animation: flyAcross linear infinite;
+}
+
+.fly-book.fb1 { top: 18%; animation-duration: 26s; }
+.fly-book.fb2 { top: 48%; animation-duration: 34s; animation-delay: -12s; scale: 0.8; }
+.fly-book.fb3 { top: 66%; animation-duration: 30s; animation-delay: -22s; scale: 1.2; }
+.fly-book.fb4 { top: 82%; animation-duration: 38s; animation-delay: -5s; scale: 0.7; }
+
+@keyframes flyAcross {
+    0% { left: -8%; opacity: 0; transform: translateY(0) rotate(-6deg); }
+    10% { opacity: 0.9; }
+    50% { transform: translateY(-30px) rotate(5deg); }
+    90% { opacity: 0.9; }
+    100% { left: 104%; opacity: 0; transform: translateY(10px) rotate(-4deg); }
+}
+
+.atlantide-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, rgba(0, 0, 0, 0.7) 100%);
+}
+
+.atlantide-main {
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 5.5rem 1.2rem 4rem;
+    text-align: center;
+}
+
+.atlantide-main h1 {
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    margin: 1rem 0 0.8rem;
+    text-shadow: 0 0 30px rgba(0, 180, 216, 0.5);
+}
+
+.atlantide-main .lead {
+    opacity: 0.88;
+    max-width: 600px;
+    margin: 0 auto 1.6rem;
+    line-height: 1.7;
+}
+
+.atlantide-head {
+    margin: 1.6rem 0 1rem;
+    opacity: 0.85;
+    font-style: italic;
+}
+
+.atlantide-card {
+    text-align: left;
+    background: rgba(255, 248, 225, 0.94);
+    color: #3a2a1a;
+    border-radius: 6px 14px 14px 6px;
+    border-left: 10px solid #5b3a29;
+    padding: 1.1rem 1.3rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    animation: cardRise 0.45s ease both;
+}
+
+.atlantide-card:nth-child(odd) {
+    transform: rotate(-0.4deg);
+}
+
+.atlantide-card h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    margin-bottom: 0.5rem;
+    color: #4a2f1a;
+}
+
+.atlantide-card p {
+    line-height: 1.7;
+}
+
+@keyframes cardRise {
+    from { opacity: 0; transform: translateY(14px); }
+}
+
+.atlantide-hint {
+    margin-top: 1.4rem;
+    font-size: 0.88rem;
+    opacity: 0.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fly-book { display: none; }
+    .atlantide-card { animation: none; }
 }
 
 /* ---------- Carte ---------- */
@@ -2314,6 +2510,25 @@ footer {
     padding: 0.25rem 0.8rem;
 }
 
+.nage-grace {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: #5d4300;
+    background: linear-gradient(135deg, #fff8e1, #ffd166);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    animation: graceFlash 0.6s ease-in-out infinite;
+}
+
+.nage-grace[hidden] {
+    display: none;
+}
+
+@keyframes graceFlash {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.07); }
+}
+
 .nage-lives {
     letter-spacing: 1px;
     font-size: 0.95rem;
@@ -2578,4 +2793,172 @@ body.abyss-mode::after {
 @media (prefers-reduced-motion: reduce) {
     .easter-rain, .abyss-bubble { display: none; }
     .logo-party, .photo-gold, .treasure-pin span { animation: none; }
+}
+
+/* ---------- Darwin : bot dauphin flottant (SeaQuest) ---------- */
+#darwin-fab {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 1.1rem;
+    z-index: 150;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 1.7rem;
+    background: linear-gradient(135deg, var(--secondary), var(--primary));
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.2s;
+    padding: 0;
+}
+
+#darwin-fab:hover {
+    transform: scale(1.1) rotate(-8deg);
+}
+
+#darwin-panel {
+    position: fixed;
+    right: 1.1rem;
+    bottom: 5rem;
+    z-index: 150;
+    width: min(340px, calc(100vw - 2.2rem));
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(2, 16, 51, 0.92);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: var(--glass-shadow);
+    animation: darwinPop 0.25s ease;
+}
+
+#darwin-panel[hidden] {
+    display: none;
+}
+
+@keyframes darwinPop {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+}
+
+.darwin-head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.9rem;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: #fff;
+    font-size: 0.95rem;
+}
+
+.darwin-head span {
+    opacity: 0.8;
+    font-size: 0.78rem;
+    flex: 1;
+}
+
+.darwin-head button {
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.2rem 0.4rem;
+}
+
+.darwin-msgs {
+    max-height: 260px;
+    overflow-y: auto;
+    padding: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.darwin-msgs p {
+    max-width: 88%;
+    padding: 0.55rem 0.8rem;
+    border-radius: 14px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.darwin-bot {
+    align-self: flex-start;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    border-bottom-left-radius: 4px;
+}
+
+.darwin-me {
+    align-self: flex-end;
+    background: var(--secondary);
+    color: var(--dark);
+    border-bottom-right-radius: 4px;
+}
+
+.darwin-thinking {
+    opacity: 0.6;
+    animation: darwinThink 1s ease-in-out infinite;
+}
+
+@keyframes darwinThink {
+    50% { opacity: 0.3; }
+}
+
+.darwin-quick {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    padding: 0 0.8rem 0.6rem;
+}
+
+.darwin-quick button {
+    font-size: 0.78rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+}
+
+.darwin-quick button:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+#darwin-panel form {
+    display: flex;
+    gap: 0.4rem;
+    padding: 0.6rem 0.8rem 0.8rem;
+}
+
+#darwin-panel input {
+    flex: 1;
+    min-width: 0;
+    padding: 0.6rem 0.9rem;
+    border-radius: 999px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+#darwin-panel input::placeholder {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+#darwin-panel form button {
+    width: 38px;
+    height: 38px;
+    flex: none;
+    border-radius: 50%;
+    border: none;
+    background: var(--secondary);
+    color: var(--dark);
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 0;
 }

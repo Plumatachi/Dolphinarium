@@ -87,9 +87,14 @@ const NagePure = (() => {
         return Math.max(30, (85 - depth * 0.12) * (density || 1));
     }
 
+    // ✨ Dolphin's Grace (clin d'œil Minecraft) : étoile rare -> dash x1.6 pendant ~4 s.
+    const GRACE_FRAMES = 240;
+    const GRACE_MUL = 1.6;
+
     function createState(lives) {
         return { y: (PLAY_TOP + PLAY_BOTTOM) / 2, vy: 0, dist: 0, depth: 0, prevDepth: 0,
             score: 0, lives, inv: 0, frame: 0, scroll: 0, obsTimer: 50, fishTimer: 90,
+            grace: 0, graceTimer: 1100,
             foes: [], items: [], over: false };
     }
 
@@ -144,15 +149,17 @@ const NagePure = (() => {
         state.y = clampY(state.y);
 
         const speed = speedFor(state.dist, cfg);
-        state.dist += speed;
-        state.scroll += speed;
+        const pace = speed * (state.grace > 0 ? GRACE_MUL : 1);
+        state.dist += pace;
+        state.scroll += pace;
         state.prevDepth = state.depth;
         state.depth = depthFor(state.dist);
-        state.score += speed * 0.06;
+        state.score += pace * 0.06;
         state.frame++;
         if (state.inv > 0) state.inv--;
+        if (state.grace > 0) state.grace--;
 
-        const events = { ate: 0, hit: false };
+        const events = { ate: 0, hit: false, grace: false };
 
         // Cap d'ennemis à l'écran : lisibilité avant tout.
         if (--state.obsTimer <= 0) {
@@ -167,9 +174,18 @@ const NagePure = (() => {
             && Math.random() < 0.004 + state.depth * 0.00002) {
             spawnFoe(state);
         }
+        // Étoile Dolphin's Grace : rare (~toutes les 25-40 s), une seule à la fois.
+        if (--state.graceTimer <= 0) {
+            state.graceTimer = 1500 + Math.random() * 900;
+            if (state.grace <= 0 && !state.foes.some(f => f.kind === 'grace')) {
+                const gy = PLAY_TOP + 60 + Math.random() * (PLAY_H - 120);
+                state.foes.push({ kind: 'grace', x: W + 50, y: gy, baseY: gy, t: 0, r: 14, sine: 16 });
+            }
+        }
 
         state.foes.forEach(f => {
-            f.x -= (speed * (f.fast ? 1.7 : 1) + (f.vx || 0)) * cfg.foeMul;
+            // Pendant la Grâce, le monde entier rush (le dauphin file).
+            f.x -= (pace * (f.fast ? 1.7 : 1) + (f.vx || 0)) * cfg.foeMul;
             f.y += (f.vy || 0);
             f.t += 0.08;
             if (f.sine) f.y = f.baseY + Math.sin(f.t) * f.sine;
@@ -200,8 +216,23 @@ const NagePure = (() => {
             return true;
         });
 
+        // Ramassage de l'étoile (jamais dangereuse, même sans invincibilité).
+        state.foes = state.foes.filter(f => {
+            if (f.kind !== 'grace') return true;
+            const dx = f.x - DOLPHIN_X;
+            const dy = f.y - state.y;
+            if (dx * dx + dy * dy < (DOLPHIN_R + 12) * (DOLPHIN_R + 12)) {
+                state.grace = GRACE_FRAMES;
+                state.score += 10;
+                events.grace = true;
+                return false;
+            }
+            return true;
+        });
+
         if (state.inv <= 0) {
             const hit = state.foes.some(f => {
+                if (f.kind === 'grace') return false;
                 const rect = obstacleRect(f);
                 if (rect) {
                     return circleRectCollide(DOLPHIN_X, state.y, DOLPHIN_R - 3,
@@ -286,6 +317,7 @@ const NagePure = (() => {
     }
 
     return { W, H, DOLPHIN_X, DOLPHIN_R, ROCK_H, PLAY_TOP, PLAY_BOTTOM, PLAY_H, MAX_LEN, CYCLE,
+        GRACE_FRAMES, GRACE_MUL,
         DIFFICULTIES, lenFor, stageFor, zoneFor, depthFor, stageBlend, speedFor, obstacleEvery, createState, clampY, obstacleRect,
         circleRectCollide, step, spawnObstacle, spawnSchool, spawnFoe, seeded };
 })();
@@ -600,6 +632,22 @@ if (typeof document !== 'undefined') (() => {
                 ctx.quadraticCurveTo(i * 5 + Math.sin(f.t + i) * 5, 14, i * 5, 26);
                 ctx.stroke();
             }
+        } else if (f.kind === 'grace') {
+            // ✨ Étoile Dolphin's Grace : glow pulsant.
+            const pulse = 1 + Math.sin(f.t * 3) * 0.15;
+            ctx.save();
+            ctx.scale(pulse, pulse);
+            ctx.shadowColor = '#ffd166';
+            ctx.shadowBlur = 22;
+            ctx.fillStyle = '#ffe9a8';
+            ctx.beginPath();
+            for (let i = 0; i < 10; i++) {
+                const r = i % 2 === 0 ? 15 : 6.5;
+                const a = -Math.PI / 2 + i * Math.PI / 5;
+                ctx[i === 0 ? 'moveTo' : 'lineTo'](Math.cos(a) * r, Math.sin(a) * r);
+            }
+            ctx.closePath(); ctx.fill();
+            ctx.restore();
         } else if (f.kind === 'barracuda') {
             // Orienté vers la gauche = son sens de nage.
             ctx.scale(-1, 1);
@@ -638,6 +686,18 @@ if (typeof document !== 'undefined') (() => {
         try {
             ev = P.step(state, input, cfg());
             if (ev.ate > 0) tone(700, 1400, 0.15, 0.16);
+            if (ev.grace) {
+                // ✨ Étincelles ascendantes + badge.
+                [660, 880, 1320].forEach((fr, i) => {
+                    setTimeout(() => tone(fr, fr * 1.2, 0.14, 0.12), i * 90);
+                });
+                const badge = document.getElementById('nage-grace');
+                if (badge) {
+                    badge.hidden = false;
+                    clearTimeout(badge._t);
+                    badge._t = setTimeout(() => { badge.hidden = true; }, 4200);
+                }
+            }
             if (ev.hit) {
                 thud();
                 livesEl.textContent = '❤️'.repeat(Math.max(0, state.lives)) + '🤍'.repeat(Math.max(0, cfg().lives - state.lives));
@@ -653,6 +713,19 @@ if (typeof document !== 'undefined') (() => {
             state.items.forEach(drawFish);
             state.foes.forEach(drawFoe);
             drawDolphin(state.y, Math.max(-0.4, Math.min(0.4, state.vy * 0.04)));
+            if (state.grace > 0) {
+                // Traînée dorée pendant le dash.
+                ctx.save();
+                ctx.globalAlpha = 0.5;
+                ctx.fillStyle = '#ffd166';
+                for (let i = 0; i < 5; i++) {
+                    ctx.beginPath();
+                    ctx.arc(P.DOLPHIN_X - 34 - i * 12 - Math.random() * 8,
+                        state.y + (Math.random() - 0.5) * 22, 3.5 - i * 0.5, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+                ctx.restore();
+            }
             drawHalo(colors.halo);
         } catch (err) {
             // Jamais de boucle morte : on bascule en pause explicite plutôt que de figer.

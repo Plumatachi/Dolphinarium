@@ -91,27 +91,50 @@ if (typeof document !== 'undefined') (() => {
         }
     });
 
-    /* ----- Logo taquin : 5 clics -> tonneau ----- */
+    /* ----- Logo taquin : 5 clics en rafale -> tonneau, sans jamais recharger.
+     * Chaque clic est intercepté : pulsation immédiate, puis navigation vers
+     * l'accueil 500 ms plus tard SAUF si un autre clic arrive (rafale = on reste,
+     * la fête joue au 5e). Clic isolé / Ctrl+clic : comportement normal. ----- */
     let logoClicks = 0;
-    let logoTimer = null;
+    let logoNavTimer = null;
+
+    function logoPulse(mark) {
+        if (!mark || reduceMotion) return;
+        mark.classList.remove('logo-tap');
+        void mark.getBoundingClientRect();
+        mark.classList.add('logo-tap');
+        setTimeout(() => mark.classList.remove('logo-tap'), 350);
+    }
+
+    function logoParty() {
+        const mark = document.querySelector('.logo .logo-mark');
+        if (mark && !reduceMotion) {
+            mark.classList.remove('logo-party');
+            void mark.getBoundingClientRect();
+            mark.classList.add('logo-party');
+            setTimeout(() => mark.classList.remove('logo-party'), 1100);
+        }
+        plouf(0.15);
+    }
 
     document.addEventListener('click', (e) => {
         const logo = e.target.closest('.logo');
         if (!logo) return;
-        // Laisse la navigation se faire, on ne fait que le gag visuel/sonore.
+        // Laisse passer les ouvertures spéciales (nouvel onglet...) et le clavier modifié.
+        if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+        e.preventDefault();
         logoClicks++;
-        clearTimeout(logoTimer);
-        logoTimer = setTimeout(() => { logoClicks = 0; }, 2500);
+        clearTimeout(logoNavTimer);
+        logoPulse(logo.querySelector('.logo-mark'));
         if (logoClicks >= 5) {
             logoClicks = 0;
-            const mark = logo.querySelector('.logo-mark');
-            if (mark && !reduceMotion) {
-                mark.classList.remove('logo-party');
-                void mark.getBoundingClientRect();
-                mark.classList.add('logo-party');
-                setTimeout(() => mark.classList.remove('logo-party'), 1100);
-            }
-            plouf(0.15);
+            logoParty(); // on reste sur place pour profiter de la fête
+        } else {
+            const href = logo.getAttribute('href');
+            logoNavTimer = setTimeout(() => {
+                logoClicks = 0;
+                if (href) window.location.href = href;
+            }, 500);
         }
     });
 

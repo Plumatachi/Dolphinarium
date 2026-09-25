@@ -168,15 +168,19 @@
         enterOverlay.classList.add('hidden');
     });
 
-    // Sortie : fondu vers le silence puis navigation (pas de coupure sèche).
-    // Si déjà muet, navigation immédiate (attendre en silence serait bizarre).
+    // Sortie : au revoir du Guide, fondu vers le silence puis navigation.
+    // « So long, and thanks for all the fish ! » 🐬
+    const farewellEl = document.getElementById('zen-farewell');
     if (quitLink) {
         quitLink.addEventListener('click', (e) => {
-            if (!ctx || leaving || muted) return;
+            if (!ctx || leaving) return;
             e.preventDefault();
             leaving = true;
-            master.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
-            setTimeout(() => { window.location.href = quitLink.href; }, 1600);
+            if (farewellEl) farewellEl.hidden = false;
+            if (!muted) {
+                master.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
+            }
+            setTimeout(() => { window.location.href = quitLink.href; }, muted ? 1400 : 3000);
         });
     }
 
