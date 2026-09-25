@@ -20,6 +20,23 @@
         maxZoom: 18, attribution: 'Imagerie : Esri, Maxar, Earthstar Geographics'
     }).addTo(map);
 
+    /* ----- 🥚 Chasse au trésor : 5 clics dans l'océan (fenêtre de 12 s) ----- */
+    let oceanClicks = 0;
+    let oceanTimer = null;
+    map.on('click', (e) => {
+        oceanClicks++;
+        clearTimeout(oceanTimer);
+        oceanTimer = setTimeout(() => { oceanClicks = 0; }, 12000);
+        if (oceanClicks >= 5) {
+            oceanClicks = 0;
+            const icon = L.divIcon({ className: 'aqua-pin treasure-pin', html: '<span>🐬</span>', iconSize: [40, 40], iconAnchor: [20, 32], popupAnchor: [0, -30] });
+            L.marker(e.latlng, { icon, title: 'Ici vivent (peut-être) des dauphins' })
+                .bindPopup('<strong>🐬 Ici vivent des dauphins !</strong><br><em>Enfin… peut-être. Bien joué, explorateur.</em>')
+                .addTo(map)
+                .openPopup();
+        }
+    });
+
     /* ----- 1. Aquariums : pastilles dauphin ----- */
     const aquariumsLayer = L.layerGroup();
     AQUARIUMS.forEach(a => {

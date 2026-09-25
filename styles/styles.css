@@ -2497,3 +2497,85 @@ footer {
 .flappy-over .btn-ghost:hover {
     background: var(--light);
 }
+
+/* ---------- 🥚 Easter eggs ---------- */
+/* Konami marin : pluie de dauphins */
+.easter-rain {
+    position: fixed;
+    top: -8vh;
+    z-index: 200;
+    pointer-events: none;
+    animation: easterFall linear forwards;
+}
+
+@keyframes easterFall {
+    to { transform: translateY(115vh) rotate(40deg); }
+}
+
+/* Logo taquin : tonneau après 5 clics */
+.logo-party {
+    animation: logoSpin 1s ease-in-out;
+}
+
+@keyframes logoSpin {
+    to { transform: rotate(360deg) scale(1.15); }
+}
+
+/* Mode abysses (22h-6h) : voile sombre + bulle bonsoir */
+body.abyss-mode::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: rgba(0, 2, 12, 0.38);
+}
+
+.abyss-bubble {
+    position: fixed;
+    bottom: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 60;
+    background: rgba(2, 16, 51, 0.9);
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 0.7rem 1.3rem;
+    border-radius: 999px;
+    font-size: 0.92rem;
+    box-shadow: var(--glass-shadow);
+    animation: abyssBob 2.4s ease-in-out infinite;
+}
+
+@keyframes abyssBob {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -7px); }
+}
+
+/* Galerie dorée : la photo légendaire */
+.photo-gold {
+    border: 3px solid #ffd166 !important;
+    box-shadow: 0 0 24px rgba(255, 209, 102, 0.65), var(--glass-shadow) !important;
+    animation: goldPulse 2s ease-in-out infinite;
+}
+
+@keyframes goldPulse {
+    0%, 100% { box-shadow: 0 0 14px rgba(255, 209, 102, 0.45), var(--glass-shadow); }
+    50% { box-shadow: 0 0 30px rgba(255, 209, 102, 0.85), var(--glass-shadow); }
+}
+
+/* Carte au trésor : pastille qui sautille */
+.treasure-pin span {
+    border-color: #ffd166 !important;
+    animation: treasureHop 0.9s ease-in-out infinite !important;
+}
+
+@keyframes treasureHop {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-8px) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .easter-rain, .abyss-bubble { display: none; }
+    .logo-party, .photo-gold, .treasure-pin span { animation: none; }
+}

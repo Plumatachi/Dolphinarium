@@ -128,6 +128,17 @@
                     loadMoreBtn.style.display = 'none';
                 }
 
+                // 🥚 Photo légendaire : 1 chance sur 8 à chaque nouveau chargement.
+                if (reset && Math.random() < 0.125) {
+                    const gold = document.createElement('div');
+                    gold.className = 'photo-item photo-gold';
+                    gold.tabIndex = 0;
+                    gold.dataset.full = 'https://commons.wikimedia.org/wiki/Special:FilePath/Dolphin%20Jump%20(Ocean%20Adventure).jpg';
+                    gold.innerHTML = '<img loading="lazy" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dolphin%20Jump%20(Ocean%20Adventure).jpg?width=800" alt="Saut légendaire">'
+                        + '<div class="photo-caption">🏆 Saut légendaire<span class="credit">🥚 Photo légendaire — 1 chance sur 8 !</span></div>';
+                    remoteGrid.prepend(gold);
+                }
+
                 const total = remoteGrid.children.length;
                 statusEl.innerHTML = total
                     ? total + ' photo(s) Wikimedia chargée(s) — <a href="https://commons.wikimedia.org" target="_blank" rel="noopener">Wikimedia Commons</a>, vérifiez la licence avant réutilisation.'
