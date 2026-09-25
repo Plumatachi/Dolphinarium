@@ -144,22 +144,41 @@
         timers.push(setTimeout(loop, rand(90000, 180000))); // première danse : 1,5 à 3 min
     }
 
-    /* ----- Entrée / sortie ----- */
+    /* ----- Entrée / sortie : fondus doux (3 s in, 1,5 s out) ----- */
+    const quitLink = document.getElementById('zen-quit');
+    let leaving = false;
+
     enterBtn.addEventListener('click', () => {
         if (!ctx) {
             ctx = new (window.AudioContext || window.webkitAudioContext)();
             master = ctx.createGain();
-            master.gain.value = 0.9;
+            master.gain.value = 0; // fondu d'entrée depuis le silence
             master.connect(ctx.destination);
+            master.gain.setTargetAtTime(0.9, ctx.currentTime, 1.2);
             startWaves();
             scheduleWhistles();
             scheduleDolphin();
             scheduleDance();
         } else if (ctx.state === 'suspended') {
             ctx.resume();
+            if (master && !muted) {
+                master.gain.setTargetAtTime(0.9, ctx.currentTime, 1.2);
+            }
         }
         enterOverlay.classList.add('hidden');
     });
+
+    // Sortie : fondu vers le silence puis navigation (pas de coupure sèche).
+    // Si déjà muet, navigation immédiate (attendre en silence serait bizarre).
+    if (quitLink) {
+        quitLink.addEventListener('click', (e) => {
+            if (!ctx || leaving || muted) return;
+            e.preventDefault();
+            leaving = true;
+            master.gain.setTargetAtTime(0, ctx.currentTime, 0.5);
+            setTimeout(() => { window.location.href = quitLink.href; }, 1600);
+        });
+    }
 
     muteBtn.addEventListener('click', () => {
         muted = !muted;
