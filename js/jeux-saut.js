@@ -61,8 +61,13 @@ const SautPure = (() => {
         return { vy0: -Math.sqrt(2 * GRAVITY * apexPx), apexPx };
     }
 
-    return { W, H, WATER_Y, PX_PER_M, GRAVITY, ROUNDS, RIVALS, DIFFICULTIES,
-        bonusZone, timingBonus, playerHeight, aiHeight, rankRound, roundPoints, arcFor };
+    // 🥚 Easter egg : 50 m cumulés sur un match (5 sauts quasi-parfaits).
+    const EGG_URL = 'https://youtu.be/FvHHlKp923A';
+    const EGG_THRESHOLD = 50;
+    function egg50(total) { return total >= EGG_THRESHOLD; }
+
+    return { W, H, WATER_Y, PX_PER_M, GRAVITY, ROUNDS, RIVALS, DIFFICULTIES, EGG_URL, EGG_THRESHOLD,
+        bonusZone, timingBonus, playerHeight, aiHeight, rankRound, roundPoints, arcFor, egg50 };
 })();
 
 if (typeof module !== 'undefined' && module.exports) {
@@ -308,6 +313,15 @@ if (typeof document !== 'undefined') (() => {
         ).join('');
         overBestEl.textContent = 'Record : ' + best + ' m';
         newRecordEl.hidden = !isRecord || mine === 0;
+        // 🥚 50 m : la légende s'ouvre…
+        const eggBanner = document.getElementById('saut-egg');
+        if (eggBanner) {
+            eggBanner.hidden = !P.egg50(mine);
+            if (P.egg50(mine)) {
+                document.getElementById('saut-egg-link').href = P.EGG_URL;
+                tone(523, 1047, 0.6, 0.15);
+            }
+        }
         showScreen('over');
     }
 

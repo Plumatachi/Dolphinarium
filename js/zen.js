@@ -124,6 +124,26 @@
         timers.push(setTimeout(loop, 6000)); // première apparition rapide pour la démo
     }
 
+    /* ----- 🥚 Ballet rare : trois dauphins qui dansent doucement (parfois seulement) ----- */
+    const danceEl = document.getElementById('zen-dance');
+
+    function scheduleDance() {
+        if (reduceMotion || !danceEl) return;
+        const loop = () => {
+            danceEl.hidden = false;
+            danceEl.classList.remove('dancing');
+            void danceEl.offsetWidth; // relance l'animation
+            danceEl.classList.add('dancing');
+            // On range après le fondu, puis on reprogramme loin dans le temps.
+            timers.push(setTimeout(() => {
+                danceEl.classList.remove('dancing');
+                danceEl.hidden = true;
+            }, 26500));
+            timers.push(setTimeout(loop, rand(240000, 480000)));
+        };
+        timers.push(setTimeout(loop, rand(90000, 180000))); // première danse : 1,5 à 3 min
+    }
+
     /* ----- Entrée / sortie ----- */
     enterBtn.addEventListener('click', () => {
         if (!ctx) {
@@ -134,6 +154,7 @@
             startWaves();
             scheduleWhistles();
             scheduleDolphin();
+            scheduleDance();
         } else if (ctx.state === 'suspended') {
             ctx.resume();
         }

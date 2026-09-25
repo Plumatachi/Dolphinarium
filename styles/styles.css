@@ -1406,6 +1406,52 @@ footer {
     .zen-dolphin.swimming { animation-duration: 30s; }
 }
 
+/* 🥚 Ballet rare : trio flou qui ondule doucement au centre, puis s'efface. */
+.zen-dance {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: min(560px, 80vw);
+    height: 220px;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.zen-dance[hidden] {
+    display: none;
+}
+
+.zen-dance.dancing {
+    animation: danceFade 26s ease-in-out forwards;
+}
+
+@keyframes danceFade {
+    0% { opacity: 0; }
+    12% { opacity: 0.8; }
+    85% { opacity: 0.8; }
+    100% { opacity: 0; }
+}
+
+.zen-dancer {
+    position: absolute;
+    width: 150px;
+    filter: blur(2.5px);
+}
+
+.zen-dance.dancing .d1 { animation: danceSway 6s ease-in-out infinite; left: 6%; top: 30%; }
+.zen-dance.dancing .d2 { animation: danceSway 6s ease-in-out -2s infinite; left: 38%; top: 8%; transform: scale(0.85); }
+.zen-dance.dancing .d3 { animation: danceSway 6s ease-in-out -4s infinite; left: 66%; top: 34%; transform: scaleX(-1) scale(0.9); }
+
+@keyframes danceSway {
+    0%, 100% { translate: 0 0; rotate: -8deg; }
+    50% { translate: 0 -26px; rotate: 8deg; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .zen-dance { display: none; }
+}
+
 /* ---------- Carte ---------- */
 #carte-map {
     height: min(70vh, 640px);
@@ -1704,6 +1750,363 @@ footer {
 .flappy-over .saut-table li.winner {
     background: #fff8e1;
     border-color: #b7791f;
+}
+
+/* 🥚 Easter egg 50 m : bannière dorée */
+.saut-egg {
+    background: linear-gradient(135deg, #fff8e1, #ffe082);
+    border: 2px solid #b7791f;
+    border-radius: 14px;
+    padding: 1rem;
+    margin-bottom: 0.8rem;
+    animation: eggGlow 1.6s ease-in-out infinite;
+}
+
+.saut-egg[hidden] {
+    display: none;
+}
+
+.saut-egg p {
+    color: #5d4300;
+    margin-bottom: 0.7rem;
+}
+
+@keyframes eggGlow {
+    0%, 100% { box-shadow: 0 0 6px rgba(183, 121, 31, 0.4); }
+    50% { box-shadow: 0 0 22px rgba(183, 121, 31, 0.9); }
+}
+
+/* 🥚 Cinématiques de fin de quiz : une scène fullscreen par score (0 à 5). */
+.cinema {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.cinema[hidden] {
+    display: none;
+}
+
+.cinema-scene {
+    position: absolute;
+    inset: 0;
+}
+
+.cinema-scene[hidden] {
+    display: none;
+}
+
+.cinema-text {
+    position: absolute;
+    left: 50%;
+    top: 2.2rem;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    font-weight: 800;
+    letter-spacing: 5px;
+    color: #fff;
+    text-shadow: 0 0 26px rgba(144, 224, 239, 0.9), 0 2px 8px rgba(0, 0, 0, 0.6);
+    animation: cinemaPop 0.7s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+    white-space: nowrap;
+}
+
+.cinema-text span {
+    display: block;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    opacity: 0.9;
+    margin-top: 0.4rem;
+}
+
+@keyframes cinemaPop {
+    from { transform: translateX(-50%) scale(0.4); opacity: 0; }
+    to { transform: translateX(-50%) scale(1); opacity: 1; }
+}
+
+.cinema-skip {
+    position: absolute;
+    bottom: 1.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    opacity: 0.65;
+    color: #fff;
+}
+
+/* --- 5/5 : récif en fête --- */
+.cinema-scene[data-scene="5"] {
+    background: linear-gradient(180deg, #023e8a 0%, #021033 60%, #010a24 100%);
+}
+
+.cinema-beams {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 150vmax;
+    height: 150vmax;
+    translate: -50% -50%;
+    background: conic-gradient(from 0deg,
+        transparent 0deg, rgba(144, 224, 239, 0.13) 12deg, transparent 24deg,
+        transparent 60deg, rgba(144, 224, 239, 0.13) 72deg, transparent 84deg,
+        transparent 120deg, rgba(144, 224, 239, 0.13) 132deg, transparent 144deg,
+        transparent 200deg, rgba(144, 224, 239, 0.13) 212deg, transparent 224deg,
+        transparent 280deg, rgba(144, 224, 239, 0.13) 292deg, transparent 304deg);
+    animation: beamsSpin 8s linear infinite;
+}
+
+@keyframes beamsSpin {
+    to { transform: rotate(360deg); }
+}
+
+.c5-rock {
+    position: absolute;
+    bottom: -30px;
+    background: #2c3440;
+    border-radius: 46% 54% 52% 48%;
+}
+
+.c5-rock.r1 { left: 4%; width: 220px; height: 130px; }
+.c5-rock.r2 { right: 6%; width: 280px; height: 160px; }
+.c5-rock.r3 { left: 42%; width: 150px; height: 90px; }
+
+.c5-algae {
+    position: absolute;
+    bottom: 0;
+    width: 12px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, #3aa56b, #1d6b41);
+    transform-origin: bottom;
+    animation: algaeSway 3.4s ease-in-out infinite;
+}
+
+.c5-algae.a1 { left: 12%; height: 150px; }
+.c5-algae.a2 { left: 16%; height: 110px; animation-delay: -1s; }
+.c5-algae.a3 { right: 14%; height: 170px; animation-delay: -2s; }
+.c5-algae.a4 { right: 20%; height: 100px; animation-delay: -0.5s; }
+
+@keyframes algaeSway {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+}
+
+.c5-fish {
+    position: absolute;
+    width: 12px;
+    height: 7px;
+    border-radius: 50%;
+    background: #ffd166;
+    animation: fishDash linear infinite;
+}
+
+.c5-fish.f1 { top: 30%; animation-duration: 5s; }
+.c5-fish.f2 { top: 44%; animation-duration: 7s; animation-delay: -2s; }
+.c5-fish.f3 { top: 60%; animation-duration: 6s; animation-delay: -4s; }
+
+@keyframes fishDash {
+    from { left: -5%; }
+    to { left: 105%; }
+}
+
+.c5-d {
+    position: absolute;
+    width: min(240px, 34vw);
+    filter: drop-shadow(0 0 18px rgba(144, 224, 239, 0.7));
+}
+
+.c5-d.d1 { top: 24%; animation: reefCross 3.2s ease-in-out infinite; }
+.c5-d.d2 { top: 48%; animation: reefCross 4.6s ease-in-out -1.5s infinite reverse; width: min(190px, 27vw); }
+.c5-d.d3 { top: 64%; animation: reefCross 6s ease-in-out -3s infinite; width: min(160px, 23vw); opacity: 0.8; }
+
+@keyframes reefCross {
+    0% { left: -28%; transform: rotate(-6deg); }
+    50% { transform: translateY(-24px) rotate(5deg); }
+    100% { left: 104%; transform: rotate(-6deg); }
+}
+
+/* --- 4/5 : île déserte --- */
+.cinema-scene[data-scene="4"] {
+    background: linear-gradient(180deg, #7ec8e3 0%, #caf0f8 52%, #0096c7 52.5%, #023e8a 100%);
+}
+
+.c4-sun {
+    position: absolute;
+    right: 12%;
+    top: 10%;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #fff4c8;
+    box-shadow: 0 0 60px 20px rgba(255, 244, 200, 0.5);
+}
+
+.c4-sand {
+    position: absolute;
+    left: 50%;
+    top: 52%;
+    width: min(420px, 70vw);
+    height: 90px;
+    translate: -50% -50%;
+    background: #ecd9a0;
+    border-radius: 50%;
+}
+
+.c4-palm { position: absolute; top: 34%; width: 10px; height: 90px; background: #8a5a2b; border-radius: 6px; }
+.c4-palm.p1 { left: 38%; transform: rotate(-8deg); }
+.c4-palm.p2 { left: 60%; transform: rotate(7deg); height: 110px; top: 31%; }
+
+.c4-palm i {
+    position: absolute;
+    top: -16px;
+    left: -30px;
+    width: 70px;
+    height: 26px;
+    background: #2e8b57;
+    border-radius: 50%;
+}
+
+.c4-sea {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 52%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.7);
+}
+
+.c4-d {
+    position: absolute;
+    width: min(200px, 30vw);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.25));
+}
+
+.c4-d.d1 { left: 20%; animation: islandLeap 2.6s ease-in-out infinite; }
+.c4-d.d2 { left: 62%; animation: islandLeap 2.6s ease-in-out -1.3s infinite reverse; }
+
+@keyframes islandLeap {
+    0% { top: 62%; opacity: 0; transform: rotate(-30deg); }
+    18% { opacity: 1; }
+    45% { top: 22%; transform: rotate(8deg); }
+    70% { top: 60%; transform: rotate(24deg); }
+    85% { opacity: 1; }
+    100% { top: 64%; opacity: 0; transform: rotate(30deg); }
+}
+
+/* --- 3/5 : grand bleu --- */
+.cinema-scene[data-scene="3"] {
+    background:
+        radial-gradient(900px 480px at 50% 0%, rgba(144, 224, 239, 0.25), transparent 60%),
+        linear-gradient(180deg, #0077b6 0%, #023e8a 55%, #010a24 100%);
+}
+
+.c3-d {
+    position: absolute;
+    width: min(300px, 46vw);
+    filter: drop-shadow(0 0 22px rgba(144, 224, 239, 0.75));
+    animation: blueLeap 3.6s ease-in-out infinite;
+}
+
+@keyframes blueLeap {
+    0% { left: 8%; top: 66%; opacity: 0; transform: rotate(-24deg); }
+    15% { opacity: 1; }
+    45% { left: 44%; top: 26%; transform: rotate(10deg); }
+    75% { left: 74%; top: 62%; transform: rotate(22deg); opacity: 1; }
+    100% { left: 88%; top: 68%; opacity: 0; transform: rotate(26deg); }
+}
+
+/* --- 2/5 : fond marin quasi vide --- */
+.cinema-scene[data-scene="2"] {
+    background: linear-gradient(180deg, #0a4a73 0%, #062a44 55%, #041a2c 100%);
+}
+
+.c2-sand {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 26%;
+    background: linear-gradient(180deg, #8a7a5a, #5d5138);
+    border-radius: 50% 50% 0 0 / 30% 30% 0 0;
+}
+
+.c2-d {
+    position: absolute;
+    top: 44%;
+    width: min(220px, 32vw);
+    opacity: 0.75;
+    animation: slowDrift 9s ease-in-out infinite;
+}
+
+@keyframes slowDrift {
+    0% { left: -26%; transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+    100% { left: 104%; transform: translateY(0); }
+}
+
+/* --- 1/5 : fond assombri, dauphin statique --- */
+.cinema-scene[data-scene="1"] {
+    background: rgba(1, 8, 28, 0.96);
+}
+
+.c1-d {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: min(260px, 40vw);
+    translate: -50% -50%;
+    opacity: 0.45;
+    animation: faintBob 5s ease-in-out infinite;
+}
+
+@keyframes faintBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+/* --- 0/5 : abysses, halo central, bords effacés, dauphin triste --- */
+.cinema-scene[data-scene="0"] {
+    background: #000;
+    box-shadow: inset 0 0 22vmax 8vmax #000;
+}
+
+.c0-halo {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: min(480px, 80vw);
+    height: min(480px, 80vw);
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(144, 224, 239, 0.22) 0%, rgba(144, 224, 239, 0.06) 45%, transparent 70%);
+    animation: haloBreathe 6s ease-in-out infinite;
+}
+
+@keyframes haloBreathe {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.08); opacity: 1; }
+}
+
+.c0-d {
+    position: absolute;
+    left: 50%;
+    top: 46%;
+    width: min(240px, 38vw);
+    translate: -50% -50%;
+    opacity: 0.55;
+    filter: grayscale(0.4);
+    animation: sadSink 7s ease-in-out infinite;
+}
+
+@keyframes sadSink {
+    0%, 100% { transform: rotate(-7deg) translateY(0); }
+    50% { transform: rotate(-7deg) translateY(9px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cinema-scene * { animation: none !important; }
 }
 
 /* HUD Descente abyssale */

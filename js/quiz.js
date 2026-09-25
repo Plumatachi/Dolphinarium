@@ -156,14 +156,107 @@
         document.getElementById('quiz-next').focus();
     }
 
+    // 🥚 Cinématiques de fin : une scène fullscreen par score (0 à 5).
+    const CINEMA_TEXTS = {
+        5: ['5 / 5', 'Récif en fête — Grand dauphin expert !'],
+        4: ['4 / 5', 'Sauts vers l\u2019île déserte !'],
+        3: ['3 / 5', 'Le grand bleu vous appelle…'],
+        2: ['2 / 5', 'Seul dans le bleu…'],
+        1: ['1 / 5', 'Coup de blues…'],
+        0: ['0 / 5', 'Les abysses aussi ont leur beauté. Replongez !']
+    };
+
+    // Bande-son par scène (injectable pour tests : retourne la partition).
+    function cinemaScore(mood) {
+        if (mood === 5) return [523.25, 659.25, 783.99, 1046.5];       // fanfare
+        if (mood === 4) return [523.25, 659.25, 783.99];                // clin d'œil joyeux
+        if (mood === 3) return 'whistles';                              // sifflements de dauphins
+        if (mood === 2) return [392.0];                                 // note douce unique
+        if (mood === 1) return [330.0, 262.0];                          // descente feutrée
+        return [110.0];                                                 // profondeur abyssale
+    }
+
     function finishTheme() {
         DolphinariumStorage.saveResult({ theme: currentTheme, score, total: questions.length });
         scoreEl.textContent = score + ' / ' + questions.length;
         if (score === questions.length) scoreMsg.textContent = '🐬 Parfait ! Grand dauphin expert, rien ne vous échappe.';
         else if (score >= 3) scoreMsg.textContent = '👏 Bien joué ! Encore une plongée et ce sera parfait.';
         else scoreMsg.textContent = '🌊 À replonger ! Jetez un œil au Wiki puis retentez votre chance.';
+        playCinema(score, () => showResult());
+    }
+
+    function showResult() {
         show(resultView);
         refreshHome();
+    }
+
+    /* Cinématique fullscreen : scène dédiée + bande-son, escamotable au clic. */
+    const cinemaEl = document.getElementById('quiz-cinema');
+    const cinemaText = document.getElementById('cinema-text');
+    let cinemaTimer = null;
+
+    function cinemaSound(mood) {
+        try {
+            const part = cinemaScore(mood);
+            const Ctx = window.AudioContext || window.webkitAudioContext;
+            const ctx = new Ctx();
+            if (part === 'whistles') {
+                // Deux sifflements glissants façon sonar lointain.
+                [[900, 1900, 0], [1200, 800, 0.9]].forEach(([f0, f1, at]) => {
+                    const t = ctx.currentTime + at + 0.1;
+                    const o = ctx.createOscillator();
+                    const g = ctx.createGain();
+                    o.type = 'sine';
+                    o.frequency.setValueAtTime(f0, t);
+                    o.frequency.exponentialRampToValueAtTime(f1, t + 0.9);
+                    g.gain.setValueAtTime(0.0001, t);
+                    g.gain.exponentialRampToValueAtTime(0.1, t + 0.25);
+                    g.gain.exponentialRampToValueAtTime(0.0001, t + 1.0);
+                    o.connect(g).connect(ctx.destination);
+                    o.start(t); o.stop(t + 1.05);
+                });
+                setTimeout(() => ctx.close(), 2500);
+                return;
+            }
+            part.forEach((f, i) => {
+                const t = ctx.currentTime + i * 0.22;
+                const o = ctx.createOscillator();
+                const g = ctx.createGain();
+                o.type = 'sine';
+                o.frequency.value = f;
+                const vol = mood === 0 ? 0.07 : 0.14;
+                g.gain.setValueAtTime(0.0001, t);
+                g.gain.exponentialRampToValueAtTime(vol, t + 0.05);
+                g.gain.exponentialRampToValueAtTime(0.0001, t + 0.7);
+                o.connect(g).connect(ctx.destination);
+                o.start(t); o.stop(t + 0.75);
+            });
+            setTimeout(() => ctx.close(), 2500);
+        } catch { /* silencieux : la cinématique reste visuelle */ }
+    }
+
+    function playCinema(score, done) {
+        const key = Math.max(0, Math.min(5, score));
+        cinemaEl.querySelectorAll('.cinema-scene').forEach(s => {
+            s.hidden = s.dataset.scene !== String(key);
+        });
+        const [big, small] = CINEMA_TEXTS[key];
+        cinemaText.innerHTML = big + '<br><span>' + small + '</span>';
+        cinemaEl.hidden = false;
+        // Relance les animations de la scène à chaque fois.
+        const scene = cinemaEl.querySelector('.cinema-scene[data-scene="' + key + '"]');
+        scene.style.animation = 'none';
+        void scene.offsetWidth;
+        scene.style.animation = '';
+        cinemaSound(key);
+        const finish = () => {
+            clearTimeout(cinemaTimer);
+            cinemaEl.hidden = true;
+            cinemaEl.removeEventListener('click', finish);
+            done();
+        };
+        cinemaEl.addEventListener('click', finish);
+        cinemaTimer = setTimeout(finish, 4500);
     }
 
     replayBtn.addEventListener('click', () => startTheme(currentTheme));
@@ -184,4 +277,8 @@
 
     refreshHome();
     show(homeView);
+
+    if (typeof module !== 'undefined' && module.exports) {
+        module.exports = { cinemaScore, CINEMA_TEXTS };
+    }
 })();

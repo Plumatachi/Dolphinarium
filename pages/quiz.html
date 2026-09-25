@@ -66,6 +66,49 @@
         </div>
     </main>
 
+    <!-- 🥚 Cinématiques de fin de quiz : une scène par score (cliquer pour passer) -->
+    <div class="cinema" id="quiz-cinema" hidden>
+        <!-- 5/5 : récif en fête -->
+        <div class="cinema-scene" data-scene="5" hidden>
+            <div class="cinema-beams" aria-hidden="true"></div>
+            <div class="c5-rock r1"></div><div class="c5-rock r2"></div><div class="c5-rock r3"></div>
+            <div class="c5-algae a1"></div><div class="c5-algae a2"></div><div class="c5-algae a3"></div><div class="c5-algae a4"></div>
+            <div class="c5-fish f1"></div><div class="c5-fish f2"></div><div class="c5-fish f3"></div>
+            <svg class="c5-d d1" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(144,224,239,0.15)" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            <svg class="c5-d d2" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(144,224,239,0.15)" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            <svg class="c5-d d3" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(144,224,239,0.15)" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+        <!-- 4/5 : île déserte -->
+        <div class="cinema-scene" data-scene="4" hidden>
+            <div class="c4-sun"></div>
+            <div class="c4-sea"></div>
+            <div class="c4-sand"></div>
+            <div class="c4-palm p1"><i></i></div><div class="c4-palm p2"><i></i></div>
+            <svg class="c4-d d1" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(58,134,200,0.35)" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+            <svg class="c4-d d2" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(58,134,200,0.35)" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+        <!-- 3/5 : grand bleu -->
+        <div class="cinema-scene" data-scene="3" hidden>
+            <svg class="c3-d" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(144,224,239,0.12)" stroke="#ffffff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+        <!-- 2/5 : fond marin quasi vide -->
+        <div class="cinema-scene" data-scene="2" hidden>
+            <div class="c2-sand"></div>
+            <svg class="c2-d" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(144,224,239,0.10)" stroke="rgba(255,255,255,0.6)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+        <!-- 1/5 : fond assombri, dauphin statique -->
+        <div class="cinema-scene" data-scene="1" hidden>
+            <svg class="c1-d" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(144,224,239,0.06)" stroke="rgba(255,255,255,0.4)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+        <!-- 0/5 : abysses, halo, dauphin triste au centre, bords effacés -->
+        <div class="cinema-scene" data-scene="0" hidden>
+            <div class="c0-halo"></div>
+            <svg class="c0-d" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z" fill="rgba(144,224,239,0.05)" stroke="rgba(255,255,255,0.35)" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"/></svg>
+        </div>
+        <p class="cinema-text" id="cinema-text"></p>
+        <p class="cinema-skip">cliquer pour passer</p>
+    </div>
+
     <footer>
         <div class="footer-content">
             <p>Dolphinarium © 2025 - Tous droits réservés</p>
