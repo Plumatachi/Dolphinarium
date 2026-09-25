@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mode zen - Dolphinarium</title>
     <link rel="stylesheet" href="../styles/styles.css">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 </head>
 <body class="zen-body">
     <!-- Scène immersive plein écran (la page elle-même, pas l'API Fullscreen) -->
@@ -28,6 +29,21 @@
         <span class="zen-bubble zb4"></span>
         <span class="zen-bubble zb5"></span>
         <span class="zen-bubble zb6"></span>
+        <!-- Récif flou : impression de fond marin, sans briser le calme -->
+        <div class="zen-reef" aria-hidden="true">
+            <div class="zen-sand"></div>
+            <div class="zen-rock rk1"></div>
+            <div class="zen-rock rk2"></div>
+            <div class="zen-seaweed sw1"></div>
+            <div class="zen-seaweed sw2"></div>
+            <div class="zen-seaweed sw3"></div>
+            <div class="zen-seaweed sw4"></div>
+            <div class="zen-seaweed sw5"></div>
+            <svg class="zen-fish zf1" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><path d="M52,15 C42,6 24,5 12,15 C24,25 42,24 52,15 Z M14,15 L3,7 L3,23 Z" fill="rgba(144,224,239,0.5)"/></svg>
+            <svg class="zen-fish zf2" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><path d="M52,15 C42,6 24,5 12,15 C24,25 42,24 52,15 Z M14,15 L3,7 L3,23 Z" fill="rgba(144,224,239,0.4)"/></svg>
+            <svg class="zen-fish zf3" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><path d="M52,15 C42,6 24,5 12,15 C24,25 42,24 52,15 Z M14,15 L3,7 L3,23 Z" fill="rgba(202,240,248,0.35)"/></svg>
+            <div class="zen-crab"><i></i></div>
+        </div>
         <!-- 🥚 Ballet rare : trois dauphins qui dansent doucement (ne casse pas le concept) -->
         <div class="zen-dance" id="zen-dance" hidden>
             <svg class="zen-dancer d1" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">

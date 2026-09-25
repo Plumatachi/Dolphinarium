@@ -81,6 +81,19 @@ body::before {
     margin-left: 2px;
 }
 
+/* Emblème du site : badge dégradé abyssal + silhouette + vague. */
+.logo-mark {
+    width: 38px;
+    height: 38px;
+    flex: none;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-mark {
+    transform: rotate(-8deg) scale(1.06);
+}
+
 .site-header nav {
     display: flex;
     gap: 0.4rem;
@@ -1450,6 +1463,115 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
     .zen-dance { display: none; }
+}
+
+/* ---------- Récif flou : fond marin feutré (rochers, sable, algues, poissons, crabe) ---------- */
+.zen-reef {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.zen-sand {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 13vh;
+    background: linear-gradient(180deg, transparent, rgba(120, 130, 145, 0.28));
+    filter: blur(9px);
+}
+
+.zen-rock {
+    position: absolute;
+    bottom: 4vh;
+    background: radial-gradient(ellipse at 35% 30%, #4a5462 0%, #232b36 70%);
+    filter: blur(7px);
+    opacity: 0.55;
+}
+
+.zen-rock.rk1 { left: -4%; width: 34vw; height: 20vh; border-radius: 48% 52% 55% 45%; }
+.zen-rock.rk2 { right: -5%; width: 30vw; height: 16vh; border-radius: 55% 45% 48% 52%; }
+
+.zen-seaweed {
+    position: absolute;
+    bottom: 9vh;
+    width: 12px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(58, 165, 107, 0.55), rgba(29, 107, 65, 0.55));
+    filter: blur(4px);
+    transform-origin: bottom;
+    animation: reefSway 8s ease-in-out infinite;
+}
+
+.zen-seaweed.sw1 { left: 6%; height: 17vh; }
+.zen-seaweed.sw2 { left: 9.5%; height: 12vh; animation-delay: -2s; }
+.zen-seaweed.sw3 { right: 10%; height: 15vh; animation-delay: -4s; }
+.zen-seaweed.sw4 { right: 6.5%; height: 10vh; animation-delay: -1s; }
+.zen-seaweed.sw5 { left: 44%; height: 8vh; animation-delay: -6s; opacity: 0.7; }
+
+@keyframes reefSway {
+    0%, 100% { transform: rotate(-4deg); }
+    50% { transform: rotate(4deg); }
+}
+
+.zen-fish {
+    position: absolute;
+    filter: blur(2.5px);
+    opacity: 0.5;
+    animation: reefDrift linear infinite;
+}
+
+.zen-fish.zf1 { top: 30%; width: 64px; animation-duration: 52s; }
+.zen-fish.zf2 { top: 55%; width: 46px; animation-duration: 68s; animation-delay: -20s; opacity: 0.4; }
+.zen-fish.zf3 { top: 70%; width: 54px; animation-duration: 60s; animation-delay: -45s; opacity: 0.35; }
+
+@keyframes reefDrift {
+    from { left: -8%; }
+    to { left: 104%; }
+}
+
+.zen-crab {
+    position: absolute;
+    right: 12%;
+    bottom: calc(4vh + 11vh);
+    width: 26px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgba(226, 109, 90, 0.55);
+    filter: blur(2.5px);
+    animation: crabStep 11s ease-in-out infinite;
+}
+
+.zen-crab i {
+    position: absolute;
+    top: -5px;
+    left: 4px;
+    width: 18px;
+    height: 8px;
+}
+
+.zen-crab i::before,
+.zen-crab i::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(226, 109, 90, 0.55);
+}
+
+.zen-crab i::before { left: 0; }
+.zen-crab i::after { right: 0; }
+
+@keyframes crabStep {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 12px -2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .zen-reef * { animation: none !important; }
 }
 
 /* ---------- Carte ---------- */
