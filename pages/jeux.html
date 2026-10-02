@@ -10,6 +10,7 @@
 <body>
     <header class="site-header">
         <a class="logo" href="../index.html"><svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="logoGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#00b4d8"/><stop offset="1" stop-color="#03045e"/></linearGradient></defs><circle cx="32" cy="32" r="30" fill="url(#logoGrad)"/><circle cx="32" cy="32" r="29" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1.5"/><g transform="translate(6,13) scale(0.26)" fill="#ffffff"><path d="M170,65 C 150,50 120,42 95,48 L 88,25 L 80,49 C 60,55 35,65 22,80 L 5,70 L 12,82 L 6,94 L 24,88 C 50,95 90,95 120,85 L 112,100 L 128,88 C 145,82 160,74 170,65 Z"/></g><path d="M10,50 C20,45 28,53 38,49 C44,47 50,48 55,50" fill="none" stroke="#90e0ef" stroke-width="3" stroke-linecap="round"/></svg> <span>Dolphinarium</span></a>
+        <button class="nav-burger" aria-label="Ouvrir le menu" aria-expanded="false">☰</button>
         <nav>
             <a href="../index.html">Accueil</a>
             <a href="galerie.html">Galerie</a>
@@ -111,6 +112,7 @@
                 <button class="zen-pill" id="nage-mute" aria-pressed="false">🔊 Son</button>
                 <button class="zen-pill" id="nage-close" aria-label="Quitter le jeu">✕</button>
             </div>
+            <p class="rotate-hint" id="nage-rotate">🔄 Tournez l'appareil pour nager grand</p>
             <div class="flappy-stage">
                 <canvas id="nage-canvas" class="game-canvas" width="800" height="450" tabindex="0" aria-label="Zone de jeu : suivez avec le doigt ou les flèches haut et bas"></canvas>
 
@@ -229,6 +231,7 @@
     <script src="../js/jeux-flappy.js" defer></script>
     <script src="../js/jeux-nage.js" defer></script>
     <script src="../js/jeux-saut.js" defer></script>
+    <script src="../js/nav.js" defer></script>
     <script src="../js/easter.js" defer></script>
     <script src="../js/darwin.js" defer></script>
 </body>

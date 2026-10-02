@@ -767,9 +767,29 @@ if (typeof document !== 'undefined') (() => {
         showScreen('over');
     }
 
+    // Paysage best-effort : l'API exige souvent le plein écran, on tente sans
+    // jamais bloquer (promesse rejetée = on reste en portrait avec l'invite).
+    function tryLandscapeLock() {
+        try {
+            const o = window.screen && window.screen.orientation;
+            if (o && typeof o.lock === 'function') {
+                const p = o.lock('landscape');
+                if (p && typeof p.catch === 'function') p.catch(() => {});
+            }
+        } catch { /* non supporté : l'invite CSS prend le relais */ }
+    }
+
+    function tryUnlock() {
+        try {
+            const o = window.screen && window.screen.orientation;
+            if (o && typeof o.unlock === 'function') o.unlock();
+        } catch { /* noop */ }
+    }
+
     function openFocus() {
         focusEl.hidden = false;
         document.body.style.overflow = 'hidden';
+        tryLandscapeLock();
         showScreen('menu');
     }
 
@@ -777,6 +797,7 @@ if (typeof document !== 'undefined') (() => {
         screen = 'menu';
         focusEl.hidden = true;
         document.body.style.overflow = '';
+        tryUnlock();
     }
 
     function showScreen(name) {
